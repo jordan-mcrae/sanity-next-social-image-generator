@@ -43,12 +43,19 @@ const buildTextSVGBuffer = (config: TextOptions): Buffer => {
 
   const svg = `
     <svg width="${config.width}" height="${config.height}">
-      <style>
-        .title { fill: ${config.color || 'white'}; font-size: ${config.fontSize}px; }
-      </style>
+      <defs>
+        <style type="text/css">
+          .title {
+            fill: ${config.color || 'white'};
+            font-size: ${config.fontSize}px;
+            font-family: "${config.fontName}";
+          }
+        </style>
+      </defs>
       ${svgText}
     </svg>
   `;
+
   return Buffer.from(svg);
 };
 
@@ -60,6 +67,7 @@ export const generateImage = async ({
   fit,
   backgroundImageUrl,
   text,
+  fontName = 'Helvetica',
 }: GenerateOptions): Promise<void> => {
   const isJpeg = backgroundImageUrl.includes('.jpg') || backgroundImageUrl.includes('.jpeg');
   if (!isJpeg) throw Error('Background image must be a JPEG.');
@@ -69,7 +77,14 @@ export const generateImage = async ({
   const image = await sharp(imageFile).resize({ width, height, fit });
 
   if (text) {
-    const buffer = buildTextSVGBuffer({ width, height, text, color: fontColor, fontSize });
+    const buffer = buildTextSVGBuffer({
+      width,
+      height,
+      text,
+      color: fontColor,
+      fontSize,
+      fontName,
+     });
 
     await image.composite([
       {

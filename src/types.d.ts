@@ -12,6 +12,7 @@ export interface GenerateOptions {
   fit?: Fits;
   fontColor?: string;
   fontSize?: number;
+  fontName?: string;
 }
 
 export interface TextOptions {
@@ -20,4 +21,5 @@ export interface TextOptions {
   width?: number;
   height?: number;
   text?: string;
+  fontName?: string;
 }
