@@ -8,6 +8,7 @@ const { generateImage } = require('../lib/index.js');
     text: 'Some Really Long Title That Might Have To Break Onto Multiple Lines!',
     fontSize: 50,
     fontName: 'Arial Black',
-    fontColor: 'white'
+    fontColor: 'white',
+    blur: 10
   });
 })();

@@ -68,6 +68,7 @@ export const generateImage = async ({
   backgroundImageUrl,
   text,
   fontName = 'Helvetica',
+  blur = 0,
 }: GenerateOptions): Promise<void> => {
   const isJpeg = backgroundImageUrl.includes('.jpg') || backgroundImageUrl.includes('.jpeg');
   if (!isJpeg) throw Error('Background image must be a JPEG.');
@@ -75,6 +76,10 @@ export const generateImage = async ({
   const imageFile = (await axios({ url: backgroundImageUrl, responseType: 'arraybuffer' })).data as Buffer;
 
   const image = await sharp(imageFile).resize({ width, height, fit });
+
+  if (blur) {
+    await image.blur(blur);
+  }
 
   if (text) {
     const buffer = buildTextSVGBuffer({
@@ -84,7 +89,7 @@ export const generateImage = async ({
       color: fontColor,
       fontSize,
       fontName,
-     });
+    });
 
     await image.composite([
       {

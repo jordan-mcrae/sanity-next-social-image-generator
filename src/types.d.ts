@@ -13,6 +13,7 @@ export interface GenerateOptions {
   fontColor?: string;
   fontSize?: number;
   fontName?: string;
+  blur?: number;
 }
 
 export interface TextOptions {
