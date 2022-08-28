@@ -8,12 +8,12 @@ export interface GenerateOptions {
   text?: string;
   width?: number;
   height?: number;
-  darken?: number;
   fit?: Fits;
   fontColor?: string;
   fontSize?: number;
   fontName?: string;
   blur?: number;
+  darken?: number;
 }
 
 export interface TextOptions {

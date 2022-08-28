@@ -69,16 +69,24 @@ export const generateImage = async ({
   text,
   fontName = 'Helvetica',
   blur = 0,
+  darken = 0,
 }: GenerateOptions): Promise<void> => {
   const isJpeg = backgroundImageUrl.includes('.jpg') || backgroundImageUrl.includes('.jpeg');
   if (!isJpeg) throw Error('Background image must be a JPEG.');
 
   const imageFile = (await axios({ url: backgroundImageUrl, responseType: 'arraybuffer' })).data as Buffer;
-
   const image = await sharp(imageFile).resize({ width, height, fit });
 
-  if (blur) {
-    await image.blur(blur);
+  const composites = [];
+
+  if (blur) await image.blur(blur);
+
+  if (darken) {
+    const overlay = `<svg width="${width}" height="${height}">
+      <rect width="${width}" height="${height}" fill="black" fill-opacity="${darken / 100}" />
+    </svg>`;
+
+    composites.push({ input: Buffer.from(overlay), left: 0, top: 0 })
   }
 
   if (text) {
@@ -91,16 +99,11 @@ export const generateImage = async ({
       fontName,
     });
 
-    await image.composite([
-      {
-        input: buffer,
-        left: 0,
-        top: 0,
-      },
-    ]);
+    composites.push({ input: buffer, left: 0, top: 0 });
   }
 
-  await image.toFile(__dirname + '/test.jpg');
+  await image.composite(composites)
+    .toFile(__dirname + '/test.jpg');
 
   return null;
 };
