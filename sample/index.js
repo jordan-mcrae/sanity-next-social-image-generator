@@ -1,7 +1,13 @@
-const { generateImage } = require('../lib/index.js');
+const { createImageClient } = require('../lib/index.js');
+
+const client = createImageClient({
+  dataset  : '',
+  projectId: '',
+  redisUrl : '',
+});
 
 (async() => {
-  await generateImage({
+  await client.generateImage({
     id: '123',
     backgroundFit: 'cover',
     backgroundImageUrl: 'https://i.picsum.photos/id/946/1200/600.jpg?hmac=UrGWW9DtBMLM25iDKJ7zqbYKkzfc50TFUmjX-o9coOk',

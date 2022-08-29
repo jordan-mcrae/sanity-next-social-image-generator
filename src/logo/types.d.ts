@@ -1,4 +1,4 @@
-import { Fits } from '../types';
+import { Fits } from '../image/types';
 
 interface LogoArgs {
   logoUrl: string;

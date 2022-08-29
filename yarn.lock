@@ -72,7 +72,7 @@
   resolved "https://registry.yarnpkg.com/@sanity/timed-out/-/timed-out-4.0.2.tgz#c9f61f9a1609baa1eb3e4235a24ea2a775022cdf"
   integrity sha512-NBDKGj14g9Z+bopIvZcQKWCzJq5JSrdmzRR1CS+iyA3Gm8SnIWBfZa7I3mTg2X6Nu8LQXG0EPKXdOGozLS4i3w==
 
-"@sanity/types@^2.0.1":
+"@sanity/types@^2.0.1", "@sanity/types@^2.31.0":
   version "2.31.0"
   resolved "https://registry.yarnpkg.com/@sanity/types/-/types-2.31.0.tgz#31964058e52cb5fafd5939635c8062563ae4ace2"
   integrity sha512-2CmVMkZMwvG8vuCZtVfz++C/0SIhRUkUym4pKEyOhLjmJJjmHj9c2FW56gUqiMB6Mr2B//i0ICrCa3DyllXIug==
@@ -81,6 +81,11 @@
     "@sanity/color" "^2.1.8"
     "@types/react" "^17.0.42"
     rxjs "^6.5.3"
+
+"@types/eventsource@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@types/eventsource/-/eventsource-1.1.9.tgz#ec35903741773c12b78a1859c82d2778b5eafcf9"
+  integrity sha512-F3K4oyM12o8W9jxuJmW+1sc8kdw0Hj0t+26urwkcolPJTgkfppEfIdftdcXmUU2QPBIwcrYO6diqgIqgCDf1FA==
 
 "@types/node@*", "@types/node@^18.7.13":
   version "18.7.13"

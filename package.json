@@ -29,6 +29,8 @@
     "lib/**/*"
   ],
   "devDependencies": {
+    "@sanity/types": "^2.31.0",
+    "@types/eventsource": "^1.1.9",
     "@types/node": "^18.7.13",
     "@types/sharp": "^0.30.5",
     "husky": "^8.0.1",
