@@ -15,7 +15,7 @@ export interface GenerateOptions {
   blur?: number;
   darken?: number;
   lighten?: number;
-  logoUrl?: string;
+  logo?: string | Buffer;
   logoPosition?: 'topLeft' | 'topRight' | 'bottomRight' | 'bottomLeft';
   logoWidth?: number;
   logoHeight?: number;

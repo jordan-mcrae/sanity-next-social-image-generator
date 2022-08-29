@@ -5,7 +5,6 @@ import { generateLogoPositioning } from '../logo';
 import { blurFilter, darkenFilter, colorize, brighten } from '../filters';
 
 export const generateImage = async ({
-  // Image settings
   width = 1200,
   height = 600,
   fontColor = 'white',
@@ -17,7 +16,7 @@ export const generateImage = async ({
   blur = 0,
   darken = 0,
   lighten = 0,
-  logoUrl = '',
+  logo = '',
   logoPosition = 'bottomRight',
   logoWidth = 200,
   logoHeight = null,
@@ -68,9 +67,9 @@ export const generateImage = async ({
   }
 
   // Logo
-  if (logoUrl) {
-    const logo = await generateLogoPositioning({
-      logoUrl,
+  if (logo) {
+    const sharpLogo = await generateLogoPositioning({
+      logo,
       logoWidth,
       logoHeight,
       logoFit,
@@ -79,7 +78,7 @@ export const generateImage = async ({
       logoPosition,
     });
 
-    composites.push(logo);
+    composites.push(sharpLogo);
   }
 
   await image.composite(composites);
