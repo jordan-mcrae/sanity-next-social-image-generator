@@ -1,14 +1,17 @@
 const { createImageClient } = require('../lib/index.js');
+const path = require('path');
+const fs = require('fs');
 
 const client = createImageClient({
-  dataset  : '',
+  dataset: '',
   projectId: '',
-  redisUrl : '',
+  redisUrl: '',
+  token: '',
 });
 
 (async() => {
-  await client.generateImage({
-    id: '123',
+  const image = await client.generateImage({
+    id: '6a48feeb-21c2-44fd-8ab9-2d05641fz1fa',
     backgroundFit: 'cover',
     backgroundImageUrl: 'https://i.picsum.photos/id/946/1200/600.jpg?hmac=UrGWW9DtBMLM25iDKJ7zqbYKkzfc50TFUmjX-o9coOk',
     text: 'Some Really Long Title That Might Have To Break Onto Multiple Lines!',
@@ -22,4 +25,9 @@ const client = createImageClient({
     // darken: 50,
     // lighten: 1.25,
   });
+
+  fs.writeFileSync(
+    path.join(__dirname, './output/sample.jpg'),
+    image
+  );
 })();

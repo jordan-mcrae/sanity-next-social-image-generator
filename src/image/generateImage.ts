@@ -23,7 +23,7 @@ export const generateImage = async ({
   logoHeight = null,
   logoFit = 'cover',
   filterColor = '',
-}: GenerateOptions): Promise<void> => {
+}: GenerateOptions): Promise<Buffer> => {
   const imageFile = await loadImage(backgroundImageUrl);
   const image = await resize(imageFile, width, height, backgroundFit);
 
@@ -82,7 +82,7 @@ export const generateImage = async ({
     composites.push(logo);
   }
 
-  await image.composite(composites).toFile(__dirname + '/test.jpg');
+  await image.composite(composites);
 
-  return null;
+  return await image.toBuffer();
 };
