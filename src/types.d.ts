@@ -14,6 +14,7 @@ export interface GenerateOptions {
   fontName?: string;
   blur?: number;
   darken?: number;
+  lighten?: number;
 }
 
 export interface TextOptions {

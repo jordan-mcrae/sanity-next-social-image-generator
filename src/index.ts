@@ -70,6 +70,7 @@ export const generateImage = async ({
   fontName = 'Helvetica',
   blur = 0,
   darken = 0,
+  lighten = 0,
 }: GenerateOptions): Promise<void> => {
   const isJpeg = backgroundImageUrl.includes('.jpg') || backgroundImageUrl.includes('.jpeg');
   if (!isJpeg) throw Error('Background image must be a JPEG.');
@@ -86,8 +87,10 @@ export const generateImage = async ({
       <rect width="${width}" height="${height}" fill="black" fill-opacity="${darken / 100}" />
     </svg>`;
 
-    composites.push({ input: Buffer.from(overlay), left: 0, top: 0 })
+    composites.push({ input: Buffer.from(overlay), left: 0, top: 0 });
   }
+
+  if (lighten) await image.modulate({ brightness: lighten });
 
   if (text) {
     const buffer = buildTextSVGBuffer({
@@ -102,8 +105,7 @@ export const generateImage = async ({
     composites.push({ input: buffer, left: 0, top: 0 });
   }
 
-  await image.composite(composites)
-    .toFile(__dirname + '/test.jpg');
+  await image.composite(composites).toFile(__dirname + '/test.jpg');
 
   return null;
 };

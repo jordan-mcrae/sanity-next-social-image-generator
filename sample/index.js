@@ -10,6 +10,7 @@ const { generateImage } = require('../lib/index.js');
     fontName: 'Arial Black',
     fontColor: 'white',
     blur: 10,
-    darken: 50
+    // darken: 50,
+    // lighten: 1.25,
   });
 })();
