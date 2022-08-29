@@ -1,6 +1,6 @@
 import { Fits } from '../image/types';
 
-interface LogoArgs {
+export interface LogoArgs {
   logo: string | Buffer;
   logoWidth: number;
   logoHeight: number;
@@ -10,7 +10,7 @@ interface LogoArgs {
   logoPosition: string;
 }
 
-interface Logo {
+export interface Logo {
   input: Buffer;
   left: number;
   top: number;
