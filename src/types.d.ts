@@ -21,4 +21,9 @@ export interface GenerateOptions {
   logoHeight?: number;
   logoFit?: Fits;
   filterColor?: string;
+  dataset: string;
+  projectId: string;
+  apiVersion: string;
+  useCdn: boolean;
+  redisUrl: string;
 }

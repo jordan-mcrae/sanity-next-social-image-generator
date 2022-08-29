@@ -5,6 +5,7 @@ import { generateLogoPositioning } from './logo';
 import { blurFilter, darkenFilter, colorize, brighten } from './filters';
 
 export const generateImage = async ({
+  // Image settings
   width = 1200,
   height = 600,
   fontColor = 'white',
@@ -22,6 +23,12 @@ export const generateImage = async ({
   logoHeight = null,
   logoFit = 'cover',
   filterColor = '',
+  // Uploads
+  dataset,
+  projectId,
+  apiVersion = '2022-08-28',
+  useCdn = false,
+  redisUrl,
 }: GenerateOptions): Promise<void> => {
   const imageFile = await loadImage(backgroundImageUrl);
   const image = await resize(imageFile, width, height, backgroundFit);
