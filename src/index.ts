@@ -64,19 +64,24 @@ export const generateImage = async ({
   height = 600,
   fontColor = 'white',
   fontSize = 50,
-  fit,
+  backgroundFit = 'cover',
   backgroundImageUrl,
   text,
   fontName = 'Helvetica',
   blur = 0,
   darken = 0,
   lighten = 0,
+  logoUrl = '',
+  logoPosition = 'bottomRight',
+  logoWidth = 200,
+  logoHeight = null,
+  logoFit = 'cover',
 }: GenerateOptions): Promise<void> => {
   const isJpeg = backgroundImageUrl.includes('.jpg') || backgroundImageUrl.includes('.jpeg');
   if (!isJpeg) throw Error('Background image must be a JPEG.');
 
   const imageFile = (await axios({ url: backgroundImageUrl, responseType: 'arraybuffer' })).data as Buffer;
-  const image = await sharp(imageFile).resize({ width, height, fit });
+  const image = await sharp(imageFile).resize({ width, height, fit: backgroundFit });
 
   const composites = [];
 
@@ -103,6 +108,50 @@ export const generateImage = async ({
     });
 
     composites.push({ input: buffer, left: 0, top: 0 });
+  }
+
+  if (logoUrl) {
+    const logoFile = (await axios({ url: logoUrl, responseType: 'arraybuffer' })).data as Buffer;
+    const logo = await sharp(logoFile).resize({ width: logoWidth, height: logoHeight, fit: logoFit }).toBuffer();
+    const logoMeta = await sharp(logo).metadata();
+
+    const DEFAULT_PADDING = Math.floor(width / 60);
+    switch (logoPosition) {
+      case 'topLeft':
+        composites.push({
+          input: logo,
+          left: DEFAULT_PADDING,
+          top: DEFAULT_PADDING,
+        });
+        break;
+      case 'topRight':
+        composites.push({
+          input: logo,
+          left: width - logoMeta.width - DEFAULT_PADDING,
+          top: DEFAULT_PADDING,
+        });
+        break;
+      case 'bottomRight':
+        composites.push({
+          input: logo,
+          left: width - logoMeta.width - DEFAULT_PADDING,
+          top: height - logoMeta.height - DEFAULT_PADDING,
+        });
+        break;
+      case 'bottomLeft':
+        composites.push({
+          input: logo,
+          left: DEFAULT_PADDING,
+          top: height - logoMeta.height - DEFAULT_PADDING,
+        });
+        break;
+      default:
+        composites.push({
+          input: logo,
+          left: width - logoMeta.width - DEFAULT_PADDING,
+          top: height - logoMeta.height - DEFAULT_PADDING,
+        });
+    }
   }
 
   await image.composite(composites).toFile(__dirname + '/test.jpg');

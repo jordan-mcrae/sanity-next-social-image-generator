@@ -8,13 +8,18 @@ export interface GenerateOptions {
   text?: string;
   width?: number;
   height?: number;
-  fit?: Fits;
+  backgroundFit?: Fits;
   fontColor?: string;
   fontSize?: number;
   fontName?: string;
   blur?: number;
   darken?: number;
   lighten?: number;
+  logoUrl?: string;
+  logoPosition?: 'topLeft' | 'topRight' | 'bottomRight' | 'bottomLeft';
+  logoWidth?: number;
+  logoHeight?: number;
+  logoFit?: Fits;
 }
 
 export interface TextOptions {
