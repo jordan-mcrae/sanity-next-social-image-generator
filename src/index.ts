@@ -76,6 +76,7 @@ export const generateImage = async ({
   logoWidth = 200,
   logoHeight = null,
   logoFit = 'cover',
+  filterColor = '',
 }: GenerateOptions): Promise<void> => {
   const isJpeg = backgroundImageUrl.includes('.jpg') || backgroundImageUrl.includes('.jpeg');
   if (!isJpeg) throw Error('Background image must be a JPEG.');
@@ -87,9 +88,14 @@ export const generateImage = async ({
 
   if (blur) await image.blur(blur);
 
-  if (darken) {
+  if (darken || filterColor) {
     const overlay = `<svg width="${width}" height="${height}">
-      <rect width="${width}" height="${height}" fill="black" fill-opacity="${darken / 100}" />
+      <rect
+        width="${width}"
+        height="${height}"
+        fill="${filterColor || 'black'}"
+        fill-opacity="${filterColor ? 0.5 : darken / 100}"
+      />
     </svg>`;
 
     composites.push({ input: Buffer.from(overlay), left: 0, top: 0 });

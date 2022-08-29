@@ -12,6 +12,7 @@ const { generateImage } = require('../lib/index.js');
     blur: 10,
     logoUrl: 'https://www.stackfive.io/images/stackfive-logo-large.png',
     logoPosition: 'bottomRight',
+    // filterColor: '#07ae9d',
     // darken: 50,
     // lighten: 1.25,
   });

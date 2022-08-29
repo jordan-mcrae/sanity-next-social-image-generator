@@ -20,6 +20,7 @@ export interface GenerateOptions {
   logoWidth?: number;
   logoHeight?: number;
   logoFit?: Fits;
+  filterColor?: string;
 }
 
 export interface TextOptions {
