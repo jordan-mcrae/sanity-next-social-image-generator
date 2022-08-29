@@ -1,8 +1,8 @@
 # sanity-next-social-image-generator
-Automatically generate social share images using Sanity webhooks, and your Next.js API!
+Automatically generate social share images using Sanity webhooks, and your Next.js API!\
+![Functionality Example](./docs/images/example.gif)
 
-Sample:\
-![A sample of what can be generated](./docs//images/sample.jpg)
+![A sample of what can be generated](./docs/images/sample.jpg)
 
 ## Requirements
 - A Next.js application
@@ -15,13 +15,14 @@ Sample:\
 #### 1) Create a webhook in Sanity
 Whenever an article is updated in your Sanity studio, we want Sanity to notify our Next.js app, and send along the data we need to generate the social share image.
 
-a) Log in to the [Sanity Dashboard](https://www.sanity.io/)
-b) Select your project, and click on the "API" tab
-c) Click the "Create Webhook" button
-d) Set up a webhook with the following options:
+* Log in to the [Sanity Dashboard](https://www.sanity.io/)
+* Select your project, and click on the "API" tab
+* Click the "Create Webhook" button
+* Set up a webhook with the following options:
 
 `Name`: Can be anything you want\
-`URL`: The URL your webhook will hit to trigger the image generation (if you're deployed to vercel, it might look something like: https://your-app.vercel.app/api/generate-preview-image). Note: If you want to test this functionality in your local dev environment, you will need to use an [Ngrok](https://ngrok.com/) URL to point to your localhost. More information on this can be found [here](#creating-an-ngrok-url-for-local-testing).\
+`URL`: The URL your webhook will hit to trigger the image generation (if you're deployed to vercel, it might look something like: https://your-app.vercel.app/api/generate-preview-image). \
+*Note: If you want to test this functionality in your local dev environment, you will need to use an [Ngrok](https://ngrok.com/) URL to point to your localhost. More information on this can be found [here](#creating-an-ngrok-url-for-local-testing).*\
 `Dataset`: "Production"\
 `Trigger on`: Create, Update\
 `Filter`: Depending on your Sanity schemas, you can define different types of documents you'd like to generate social share images for. For example, if you wanted to add a social share image to your articles or topic pages, you would use:\
@@ -40,21 +41,21 @@ d) Set up a webhook with the following options:
 `imageUrl`: The background image that you want to display on your social image. In the above example, it's our "image" field in our Sanity schema\
 
 ![Example webhook configuration](./docs/images/webhook-config.jpg)
-e) Click the "Save" button at the bottom of the page.
+* Click the "Save" button at the bottom of the page.
 
 #### 2) Create a Sanity Editor Token
 If your Next.js application does not currently have a Read / Write token in Sanity
 
-a) In the API tab, scroll down to the bottom of the page and click on "Add API Token"
-b) Add a name, like "Social Share Image Generation"
-c) Select "Editor" under permissions
-d) Click "Save"
-e) Copy your token and save it in your Next.js environment variables. You will need this later!
+* In the API tab, scroll down to the bottom of the page and click on "Add API Token"
+* Add a name, like "Social Share Image Generation"
+* Select "Editor" under permissions
+* Click "Save"
+* Copy your token and save it in your Next.js environment variables. You will need this later!
 
 #### 3) Update your Sanity Schema
 In your Sanity project, add a new field to the document schema that you will be generating social share images for.\
 
-a) Add the field
+* Add the field
 ```js
 {
   name       : 'shareImage',
@@ -64,13 +65,13 @@ a) Add the field
   readOnly   : true
 },
 ```
-b) Publish your schema update (e.g. `sanity deploy`)
+* Publish your schema update (e.g. `sanity deploy`)
 
 #### 4) Create a Next.js API Route
 This is used to receive Sanity's webhook requests.\
 
-a) Create a new file in your API folder called: `pages/api/generate-preview-image.js`
-b) Paste the following code into this file:
+* Create a new file in your API folder called: `pages/api/generate-preview-image.js`
+* Paste the following code into this file:
 
 ```js
 const { createImageClient } = require('sanity-next-social-image-generator');
@@ -204,7 +205,7 @@ const image = await client.generateImage({
 `logoWidth`: **Optional** Adjust the width of your logo\
 `logoHeight`: **Optional** Adjust the height of your logo\
 `logoFit`: **Optional** How the image should be resized to fit the dimensions. Can be one of `cover`, `contain`, `fill`, `inside` or `outside`.\
-`filterColor`: **Optional** Add a filter color overlay over the background image. Must be a hex code, or a valid css color type.\
+`filterColor`: **Optional** Add a filter color overlay over the background image. Must be a hex code, or a valid css color type.
 
 ## Creating an NGROK URL for Local Testing
 If you want to test this functionality locally, your Sanity webhook will have to point to an NGROK URL. Ngrok tunnels your local environment, and creates a public URL.
