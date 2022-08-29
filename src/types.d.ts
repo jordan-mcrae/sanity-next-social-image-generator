@@ -1,6 +1,6 @@
 import { FitEnum } from 'sharp';
 
-type Fits = keyof FitEnum;
+export type Fits = keyof FitEnum;
 
 export interface GenerateOptions {
   id: string;
@@ -21,13 +21,4 @@ export interface GenerateOptions {
   logoHeight?: number;
   logoFit?: Fits;
   filterColor?: string;
-}
-
-export interface TextOptions {
-  color?: string;
-  fontSize?: number;
-  width?: number;
-  height?: number;
-  text?: string;
-  fontName?: string;
 }
