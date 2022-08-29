@@ -43,9 +43,9 @@ Whenever an article is updated in your Sanity studio, we want Sanity to notify o
 *Note: If you want to test this functionality in your local dev environment, you will need to use an [Ngrok](https://ngrok.com/) URL to point to your localhost. More information on this can be found [here](#creating-an-ngrok-url-for-local-testing).*\
 `Dataset`: "Production"\
 `Trigger on`: Create, Update\
-`Filter`: Depending on your Sanity schemas, you can define different types of documents you'd like to generate social share images for. For example, if you wanted to add a social share image to your articles or topic pages, you would use:\
+`Filter`: Depending on your Sanity schemas, you can define different types of documents you'd like to generate social share images for. For example, if you wanted to add a social share image to your articles or topic pages, you would use:
   - `_type == 'article' || _type == 'topic'`
-`Projection`: Please follow the same data structure as below. These are the pieces of data that the social image generator needs to properly generate your image:\
+`Projection`: Please follow the same data structure as below. These are the pieces of data that the social image generator needs to properly generate your image:
 ```js
 {
   "text": title,
@@ -55,7 +55,7 @@ Whenever an article is updated in your Sanity studio, we want Sanity to notify o
 ```
 
 `Text`: The text field you want to display on your social image. In the above example, it's our "title" field in our Sanity schema\
-`imageUrl`: The background image that you want to display on your social image. In the above example, it's our "image" field in our Sanity schema\
+`imageUrl`: The background image that you want to display on your social image. In the above example, it's our "image" field in our Sanity schema
 
 ![Example webhook configuration](./docs/images/webhook-config.jpg)
 * Click the "Save" button at the bottom of the page.
@@ -70,7 +70,7 @@ If your Next.js application does not currently have a Read / Write token in Sani
 * Copy your token and save it in your Next.js environment variables. You will need this later!
 
 ### 3) Update your Sanity Schema
-In your Sanity project, add a new field to the document schema that you will be generating social share images for.\
+In your Sanity project, add a new field to the document schema that you will be generating social share images for.
 
 * Add the field
 ```js
@@ -92,7 +92,7 @@ or \
 `npm install sanity-next-social-image-generator --save`
 
 ### 5) Create a Next.js API Route
-This is used to receive Sanity's webhook requests.\
+This is used to receive Sanity's webhook requests.
 
 * Create a new file in your API folder called: `pages/api/generate-preview-image.js`
 * Paste the following code into this file:
@@ -132,7 +132,7 @@ export default async function generatePreviewImage(req, res) {
 ```
 
 ### 6) Update your Next.js page(s)' meta tags
-In your Next.js page where you are using your article data, make sure you add your new image to your `meta` tags so that is shows up when your share your article!\
+In your Next.js page where you are using your article data, make sure you add your new image to your `meta` tags so that is shows up when your share your article!
 
 Example page:
 ```js
@@ -172,7 +172,7 @@ Your app is now set up to receive Sanity webhooks and automatically generate you
 
 ## API
 ### Client
-The client is used to authenticate with Sanity and upload your social share images. It takes the following arguments:\
+The client is used to authenticate with Sanity and upload your social share images. It takes the following arguments:
 
 ```js
 const client = createImageClient({
@@ -189,7 +189,7 @@ const client = createImageClient({
 `token`: Your Sanity Editor token (used for updating your article data with the social share image)\
 
 ### Image Options
-There are many options available to you that you can use to control how your social share image will look.\
+There are many options available to you that you can use to control how your social share image will look.
 
 All available options
 ```js
